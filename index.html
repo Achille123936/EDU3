@@ -694,7 +694,18 @@
             margin-top: 20px;
         }
         
-        /* Responsive */
+        /* Menu hamburger pour mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        /* Responsive amélioré */
         @media (max-width: 1024px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -702,41 +713,189 @@
         }
         
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-container {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--gradient-primary);
+                z-index: 100;
+                border-radius: 0 0 15px 15px;
+                padding: 10px;
+            }
+            
+            .nav-container.mobile-open {
+                display: block;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-tab {
+                justify-content: center;
+                padding: 15px;
+            }
+            
             .features-grid {
                 grid-template-columns: 1fr;
             }
+            
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
             .action-buttons {
                 flex-direction: column;
                 align-items: center;
             }
+            
             .action-btn {
                 width: 100%;
                 max-width: 300px;
                 justify-content: center;
             }
+            
             .header h1 {
                 font-size: 2rem;
             }
+            
             .header p {
                 font-size: 1rem;
             }
-            .nav-tabs {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding-bottom: 10px;
-            }
-            .nav-tab {
-                flex-shrink: 0;
-            }
+            
             .tools-grid {
                 grid-template-columns: 1fr;
             }
+            
             .footer-content {
                 flex-direction: column;
                 text-align: center;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-text h1 {
+                font-size: 2rem;
+            }
+            
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            
+            .search-bar {
+                margin-bottom: 15px;
+            }
+            
+            .search-bar input {
+                padding: 12px 15px 12px 45px;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .feature-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .progress-section, .quick-tools {
+                padding: 20px;
+            }
+            
+            .stats-section {
+                padding: 20px;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .notifications-section {
+                padding: 20px;
+            }
+            
+            .notification-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .footer {
+                padding: 20px 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.8rem;
+            }
+            
+            .logo-text p {
+                font-size: 1rem;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.6rem;
+            }
+            
+            .welcome-section p {
+                font-size: 1rem;
+            }
+            
+            .feature-link, .action-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .top-bar {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .user-info {
+                flex: 1;
+            }
+            
+            .notification-bell {
+                flex-shrink: 0;
+            }
+            
+            .search-bar input {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -758,6 +917,9 @@
                             </div>
                         </div>
                     </div>
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
                     <div class="notification-bell" id="notification-bell">
                         <i class="fas fa-bell"></i>
                         <div class="notification-badge">3</div>
@@ -780,7 +942,7 @@
                 </div>
                 
                 <!-- Navigation intégrée -->
-                <div class="nav-container">
+                <div class="nav-container" id="nav-container">
                     <div class="nav-tabs">
                         <a href="index.html" class="nav-tab active">
                             <i class="fas fa-home"></i> Accueil
@@ -806,6 +968,7 @@
         </div>
 
         <div class="main-content">
+            <!-- Le reste du contenu reste identique -->
             <div class="welcome-section">
                 <h2>Bienvenue sur EduBot Pro</h2>
                 <p>Découvrez une expérience d'apprentissage personnalisée avec des outils intelligents adaptés à votre rythme et à vos objectifs académiques.</p>
@@ -1103,6 +1266,8 @@
             const notificationBell = document.getElementById('notification-bell');
             const globalSearch = document.getElementById('global-search');
             const toolCards = document.querySelectorAll('.tool-card');
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const navContainer = document.getElementById('nav-container');
 
             // Variables
             let isAdminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
@@ -1120,6 +1285,18 @@
 
             // Fonctions d'initialisation
             function setupEventListeners() {
+                // Menu mobile
+                mobileMenuToggle.addEventListener('click', function() {
+                    navContainer.classList.toggle('mobile-open');
+                });
+
+                // Fermer le menu mobile en cliquant à l'extérieur
+                document.addEventListener('click', function(e) {
+                    if (!navContainer.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                        navContainer.classList.remove('mobile-open');
+                    }
+                });
+
                 // Navigation par onglets
                 navTabs.forEach(tab => {
                     tab.addEventListener('click', function(e) {
@@ -1131,7 +1308,10 @@
                             return;
                         }
                         
-                        // Pour les autres pages, la navigation normale se fait via les href
+                        // Fermer le menu mobile après sélection
+                        if (window.innerWidth <= 768) {
+                            navContainer.classList.remove('mobile-open');
+                        }
                     });
                 });
 
@@ -1145,8 +1325,6 @@
                             showAdminLoginModal();
                             return;
                         }
-                        
-                        // Pour les autres pages, la navigation normale se fait via les href
                     });
                 });
 
@@ -1160,8 +1338,6 @@
                             showAdminLoginModal();
                             return;
                         }
-                        
-                        // Pour les autres actions, la navigation normale se fait via les href
                     });
                 });
 
@@ -1193,6 +1369,13 @@
                 globalSearch.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         performSearch(this.value);
+                    }
+                });
+
+                // Redimensionnement de la fenêtre
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navContainer.classList.remove('mobile-open');
                     }
                 });
             }
