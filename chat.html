@@ -35,28 +35,28 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
             color: var(--dark-color);
         }
         
         .container {
-            width: 95%;
+            width: 100%;
             max-width: 1400px;
             background-color: white;
             border-radius: 20px;
             box-shadow: var(--shadow);
             overflow: hidden;
-            margin-top: 20px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 40px);
+            height: calc(100vh - 20px);
         }
         
         /* Header */
         .header {
             background: var(--gradient-primary);
             color: white;
-            padding: 20px;
+            padding: 15px;
             position: relative;
         }
         
@@ -69,39 +69,39 @@
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
         
         .logo-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
         
         .logo-text h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-bottom: 5px;
         }
         
         .logo-text p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.9;
         }
         
         .admin-controls {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             align-items: center;
         }
         
         .admin-indicator {
             background: rgba(255, 255, 255, 0.2);
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 15px;
             font-size: 0.8rem;
             display: none;
@@ -110,7 +110,7 @@
         }
         
         .btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -119,6 +119,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 0.9rem;
         }
         
         .btn-primary {
@@ -155,13 +156,13 @@
         }
         
         .nav-tab {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background-color: rgba(255, 255, 255, 0.2);
             color: white;
             text-decoration: none;
             border-radius: 8px;
             transition: var(--transition);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border: 1px solid rgba(255, 255, 255, 0.3);
             display: flex;
             align-items: center;
@@ -188,7 +189,7 @@
         }
         
         .chat-header {
-            padding: 20px;
+            padding: 15px;
             border-bottom: 1px solid #e9ecef;
             display: flex;
             justify-content: space-between;
@@ -199,20 +200,21 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 1.3rem;
         }
         
         .chat-messages {
             flex: 1;
-            padding: 20px;
+            padding: 15px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         
         .message {
-            max-width: 70%;
-            padding: 15px;
+            max-width: 85%;
+            padding: 12px;
             border-radius: 15px;
             position: relative;
             animation: fadeIn 0.3s ease;
@@ -276,7 +278,7 @@
         }
         
         .chat-input-container {
-            padding: 20px;
+            padding: 15px;
             border-top: 1px solid #e9ecef;
             display: flex;
             gap: 10px;
@@ -284,7 +286,7 @@
         
         .chat-input {
             flex: 1;
-            padding: 15px;
+            padding: 12px;
             border: 1px solid #e9ecef;
             border-radius: 10px;
             resize: none;
@@ -298,7 +300,7 @@
         }
         
         .send-btn {
-            padding: 15px 25px;
+            padding: 12px 20px;
             background: var(--gradient-primary);
             color: white;
             border: none;
@@ -317,7 +319,7 @@
         
         /* Knowledge Base Panel */
         .knowledge-panel {
-            width: 400px;
+            width: 100%;
             border-left: 1px solid #e9ecef;
             background: #f8f9fa;
             display: none;
@@ -325,7 +327,7 @@
         }
         
         .knowledge-header {
-            padding: 20px;
+            padding: 15px;
             border-bottom: 1px solid #e9ecef;
             display: flex;
             justify-content: space-between;
@@ -334,21 +336,21 @@
         
         .knowledge-content {
             flex: 1;
-            padding: 20px;
+            padding: 15px;
             overflow-y: auto;
         }
         
         .qa-item {
             background: white;
             border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
+            padding: 12px;
+            margin-bottom: 12px;
             box-shadow: var(--shadow);
         }
         
         .qa-question {
             font-weight: 500;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -356,25 +358,25 @@
         
         .qa-answer {
             color: #6c757d;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .qa-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: flex-end;
         }
         
         .qa-form {
             background: white;
             border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
             box-shadow: var(--shadow);
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .form-label {
@@ -408,20 +410,21 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 15px;
         }
         
         .modal-content {
             background: white;
             border-radius: 15px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: var(--shadow);
             max-width: 500px;
-            width: 90%;
+            width: 100%;
         }
         
         .modal-title {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: var(--dark-color);
         }
         
@@ -429,11 +432,58 @@
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 15px;
+        }
+        
+        /* Menu hamburger pour mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
         }
         
         /* Responsive */
+        @media (max-width: 1024px) {
+            .knowledge-panel {
+                width: 350px;
+            }
+        }
+        
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-container {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--gradient-primary);
+                z-index: 100;
+                border-radius: 0 0 15px 15px;
+                padding: 10px;
+            }
+            
+            .nav-container.mobile-open {
+                display: block;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .nav-tab {
+                justify-content: center;
+                padding: 10px;
+            }
+            
             .main-content {
                 flex-direction: column;
             }
@@ -445,27 +495,156 @@
             }
             
             .message {
-                max-width: 85%;
-            }
-            
-            .nav-tabs {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding-bottom: 5px;
-            }
-            
-            .nav-tab {
-                flex-shrink: 0;
+                max-width: 90%;
             }
             
             .header-content {
                 flex-direction: column;
-                gap: 15px;
+                gap: 12px;
                 text-align: center;
             }
             
             .admin-controls {
                 justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .logo-section {
+                justify-content: center;
+            }
+            
+            .chat-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .chat-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .chat-messages {
+                padding: 10px;
+            }
+            
+            .chat-input-container {
+                padding: 10px;
+                flex-direction: column;
+            }
+            
+            .send-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .knowledge-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .qa-actions {
+                flex-direction: column;
+            }
+            
+            .qa-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                height: calc(100vh - 10px);
+                margin-top: 5px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 12px;
+            }
+            
+            .logo-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .chat-header {
+                padding: 12px;
+            }
+            
+            .chat-header h2 {
+                font-size: 1.1rem;
+            }
+            
+            .chat-messages {
+                padding: 8px;
+            }
+            
+            .message {
+                max-width: 95%;
+                padding: 10px;
+            }
+            
+            .chat-input-container {
+                padding: 8px;
+            }
+            
+            .chat-input {
+                padding: 10px;
+            }
+            
+            .send-btn {
+                padding: 10px 15px;
+            }
+            
+            .knowledge-header {
+                padding: 12px;
+            }
+            
+            .knowledge-content {
+                padding: 10px;
+            }
+            
+            .qa-item {
+                padding: 10px;
+            }
+            
+            .qa-form {
+                padding: 12px;
+            }
+            
+            .modal-content {
+                padding: 15px;
+            }
+            
+            .form-input, .form-textarea {
+                padding: 8px;
+            }
+            
+            .message-actions {
+                position: static;
+                display: flex;
+                margin-top: 5px;
+                justify-content: flex-end;
+            }
+            
+            .message:hover .message-actions {
+                display: flex;
             }
         }
     </style>
@@ -485,6 +664,10 @@
                     </div>
                 </div>
                 
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
                 <div class="admin-controls">
                     <div class="admin-indicator" id="admin-indicator">
                         <i class="fas fa-user-shield"></i> Mode Administrateur
@@ -493,13 +676,13 @@
                         <i class="fas fa-database"></i> Base de connaissances
                     </button>
                     <button class="btn btn-danger" id="admin-logout" style="display: none;">
-                        <i class="fas fa-sign-out-alt"></i> Déconnexion Admin
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
                     </button>
                 </div>
             </div>
             
             <!-- Navigation -->
-            <div class="nav-container">
+            <div class="nav-container" id="nav-container">
                 <div class="nav-tabs">
                     <a href="index.html" class="nav-tab">
                         <i class="fas fa-home"></i> Accueil
@@ -684,6 +867,8 @@
             const cancelEditBtn = document.getElementById('cancel-edit');
             const saveEditBtn = document.getElementById('save-edit');
             const editMessageContent = document.getElementById('edit-message-content');
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const navContainer = document.getElementById('nav-container');
 
             // Variables
             let isAdminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
@@ -714,6 +899,18 @@
 
             // Fonctions d'initialisation
             function setupEventListeners() {
+                // Menu mobile
+                mobileMenuToggle.addEventListener('click', function() {
+                    navContainer.classList.toggle('mobile-open');
+                });
+
+                // Fermer le menu mobile en cliquant à l'extérieur
+                document.addEventListener('click', function(e) {
+                    if (!navContainer.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                        navContainer.classList.remove('mobile-open');
+                    }
+                });
+
                 // Envoi de message
                 sendBtn.addEventListener('click', sendMessage);
                 chatInput.addEventListener('keypress', function(e) {
@@ -754,6 +951,13 @@
 
                 // Auto-resize du textarea
                 chatInput.addEventListener('input', autoResizeTextarea);
+
+                // Redimensionnement de la fenêtre
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navContainer.classList.remove('mobile-open');
+                    }
+                });
             }
 
             function autoResizeTextarea() {
