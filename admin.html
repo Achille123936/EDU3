@@ -16,6 +16,7 @@
             --warning-color: #f72585;
             --correct-color: #4ade80;
             --incorrect-color: #f87171;
+            --game-color: #ff9e00;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
@@ -185,6 +186,10 @@
         
         .admin-btn.warning {
             background: var(--warning-color);
+        }
+        
+        .admin-btn.game {
+            background: var(--game-color);
         }
         
         .admin-tabs {
@@ -414,6 +419,72 @@
             margin-top: 10px;
         }
         
+        /* Section des jeux */
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--game-color);
+        }
+        
+        .game-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: white;
+            background: var(--game-color);
+        }
+        
+        .game-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .game-description {
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .game-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .game-status.active {
+            background-color: rgba(76, 201, 240, 0.2);
+            color: var(--success-color);
+        }
+        
+        .game-status.inactive {
+            background-color: rgba(248, 113, 113, 0.2);
+            color: var(--incorrect-color);
+        }
+        
         /* Modal de confirmation */
         .modal {
             display: none;
@@ -511,6 +582,10 @@
             background: linear-gradient(45deg, var(--warning-color), #dc2626);
         }
         
+        .stat-icon.games {
+            background: linear-gradient(45deg, var(--game-color), #ff6b00);
+        }
+        
         .stat-value {
             font-size: 2rem;
             font-weight: bold;
@@ -556,6 +631,10 @@
             }
             
             .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .games-container {
                 grid-template-columns: 1fr;
             }
         }
@@ -644,12 +723,20 @@
                             <div class="stat-value" id="total-users">0</div>
                             <div class="stat-label">Utilisateurs actifs</div>
                         </div>
+                        <div class="stat-card">
+                            <div class="stat-icon games">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="stat-value" id="total-games">0</div>
+                            <div class="stat-label">Jeux disponibles</div>
+                        </div>
                     </div>
 
                     <!-- Onglets d'administration -->
                     <div class="admin-tabs">
                         <a href="#" class="admin-tab active" data-tab="exams-management">Gestion des Examens</a>
                         <a href="#" class="admin-tab" data-tab="questions-management">Gestion des Questions</a>
+                        <a href="#" class="admin-tab" data-tab="games-management">Gestion des Jeux</a>
                         <a href="#" class="admin-tab" data-tab="users-management">Gestion des Utilisateurs</a>
                         <a href="#" class="admin-tab" data-tab="settings-management">Paramètres</a>
                     </div>
@@ -783,6 +870,88 @@
                         </table>
                     </div>
 
+                    <!-- Gestion des jeux -->
+                    <div class="admin-tab-content" id="games-management" style="display: none;">
+                        <div class="admin-actions">
+                            <button class="admin-btn game" id="add-game-btn">
+                                <i class="fas fa-plus"></i> Ajouter un Jeu
+                            </button>
+                            <button class="admin-btn" id="refresh-games-btn">
+                                <i class="fas fa-sync-alt"></i> Actualiser
+                            </button>
+                        </div>
+
+                        <div class="games-container" id="games-container">
+                            <!-- Les jeux seront chargés dynamiquement -->
+                        </div>
+
+                        <!-- Formulaire de jeu -->
+                        <div class="admin-form" id="game-form">
+                            <h3 id="game-form-title">Ajouter un Jeu Éducatif</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="game-name">Nom du jeu</label>
+                                <input type="text" class="form-input" id="game-name" placeholder="Entrez le nom du jeu">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="game-description">Description</label>
+                                <textarea class="form-textarea" id="game-description" placeholder="Décrivez le jeu"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="game-type">Type de jeu</label>
+                                    <select class="form-select" id="game-type">
+                                        <option value="quiz">Quiz</option>
+                                        <option value="memory">Mémoire</option>
+                                        <option value="puzzle">Puzzle</option>
+                                        <option value="adventure">Aventure</option>
+                                        <option value="simulation">Simulation</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="game-subject">Matière</label>
+                                    <select class="form-select" id="game-subject">
+                                        <option value="math">Mathématiques</option>
+                                        <option value="french">Français</option>
+                                        <option value="science">Sciences</option>
+                                        <option value="history">Histoire-Géographie</option>
+                                        <option value="english">Anglais</option>
+                                        <option value="general">Général</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="game-difficulty">Difficulté</label>
+                                    <select class="form-select" id="game-difficulty">
+                                        <option value="easy">Facile</option>
+                                        <option value="medium">Moyen</option>
+                                        <option value="hard">Difficile</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="game-status">Statut</label>
+                                    <select class="form-select" id="game-status">
+                                        <option value="active">Actif</option>
+                                        <option value="inactive">Inactif</option>
+                                        <option value="development">En développement</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="game-url">URL du jeu</label>
+                                <input type="text" class="form-input" id="game-url" placeholder="Entrez l'URL du jeu">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="game-image">Image du jeu (URL)</label>
+                                <input type="text" class="form-input" id="game-image" placeholder="Entrez l'URL de l'image">
+                            </div>
+                            <div class="form-actions">
+                                <button class="admin-btn delete" id="cancel-game-btn">Annuler</button>
+                                <button class="admin-btn success" id="save-game-btn">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Gestion des utilisateurs -->
                     <div class="admin-tab-content" id="users-management" style="display: none;">
                         <div class="admin-actions">
@@ -889,6 +1058,14 @@
             const questionsContainer = document.getElementById('questions-container');
             const refreshExamsBtn = document.getElementById('refresh-exams-btn');
             
+            // Éléments de gestion des jeux
+            const gamesContainer = document.getElementById('games-container');
+            const gameForm = document.getElementById('game-form');
+            const addGameBtn = document.getElementById('add-game-btn');
+            const cancelGameBtn = document.getElementById('cancel-game-btn');
+            const saveGameBtn = document.getElementById('save-game-btn');
+            const refreshGamesBtn = document.getElementById('refresh-games-btn');
+            
             // Éléments des onglets
             const adminTabs = document.querySelectorAll('.admin-tab');
             const adminTabContents = document.querySelectorAll('.admin-tab-content');
@@ -897,6 +1074,7 @@
             const totalExamsEl = document.getElementById('total-exams');
             const totalQuestionsEl = document.getElementById('total-questions');
             const totalUsersEl = document.getElementById('total-users');
+            const totalGamesEl = document.getElementById('total-games');
             
             // Éléments du modal
             const confirmationModal = document.getElementById('confirmation-modal');
@@ -909,8 +1087,11 @@
             // Variables
             let isAdminLoggedIn = false;
             let isEditingExam = false;
+            let isEditingGame = false;
             let editingExamId = null;
+            let editingGameId = null;
             let examsData = [];
+            let gamesData = [];
             let questionsData = [];
             let usersData = [];
             let currentAction = null;
@@ -918,8 +1099,8 @@
 
             // Informations de connexion administrateur
             const adminCredentials = {
-                username: "admin",
-                password: "admin123"
+                username: "Nancy",
+                password: "2000"
             };
 
             // Initialisation
@@ -942,6 +1123,12 @@
                 saveExamBtn.addEventListener('click', saveExam);
                 addQuestionBtn.addEventListener('click', addQuestionForm);
                 refreshExamsBtn.addEventListener('click', refreshAdminData);
+
+                // Gestion des jeux
+                addGameBtn.addEventListener('click', showGameForm);
+                cancelGameBtn.addEventListener('click', hideGameForm);
+                saveGameBtn.addEventListener('click', saveGame);
+                refreshGamesBtn.addEventListener('click', refreshAdminData);
 
                 // Navigation par onglets
                 adminTabs.forEach(tab => {
@@ -1002,7 +1189,7 @@
             function showAdminPanel() {
                 adminLoginTab.classList.remove('active');
                 adminPanelTab.style.display = 'block';
-                adminName.textContent = 'Administrateur';
+                adminName.textContent = 'Nancy';
                 refreshAdminData();
                 updateStats();
             }
@@ -1091,6 +1278,49 @@
                     saveExamsData();
                 }
 
+                // Données jeux par défaut
+                const savedGames = localStorage.getItem('gamesData');
+                if (savedGames) {
+                    gamesData = JSON.parse(savedGames);
+                } else {
+                    gamesData = [
+                        {
+                            id: 1,
+                            name: 'Quiz Mathématique',
+                            description: 'Testez vos connaissances en mathématiques avec ce quiz interactif.',
+                            type: 'quiz',
+                            subject: 'math',
+                            difficulty: 'medium',
+                            status: 'active',
+                            url: 'games/math-quiz.html',
+                            image: 'https://via.placeholder.com/300x200?text=Quiz+Math'
+                        },
+                        {
+                            id: 2,
+                            name: 'Mémoire des Capitales',
+                            description: 'Retrouvez les paires de capitales et pays dans ce jeu de mémoire.',
+                            type: 'memory',
+                            subject: 'history',
+                            difficulty: 'easy',
+                            status: 'active',
+                            url: 'games/capitals-memory.html',
+                            image: 'https://via.placeholder.com/300x200?text=Mémoire+Capitales'
+                        },
+                        {
+                            id: 3,
+                            name: 'Puzzle Français',
+                            description: 'Reconstituez les phrases pour améliorer votre français.',
+                            type: 'puzzle',
+                            subject: 'french',
+                            difficulty: 'hard',
+                            status: 'development',
+                            url: 'games/french-puzzle.html',
+                            image: 'https://via.placeholder.com/300x200?text=Puzzle+Français'
+                        }
+                    ];
+                    saveGamesData();
+                }
+
                 // Données utilisateurs par défaut
                 usersData = [
                     { id: 1, name: 'Jean Dupont', email: 'jean.dupont@email.com', role: 'Étudiant', registrationDate: '2023-01-15', status: 'active' },
@@ -1103,8 +1333,13 @@
                 localStorage.setItem('examsData', JSON.stringify(examsData));
             }
 
+            function saveGamesData() {
+                localStorage.setItem('gamesData', JSON.stringify(gamesData));
+            }
+
             function refreshAdminData() {
                 loadExamsTable();
+                loadGamesTable();
                 loadQuestionsTable();
                 loadUsersTable();
                 updateStats();
@@ -1120,6 +1355,7 @@
                 totalExamsEl.textContent = examsData.length;
                 totalQuestionsEl.textContent = totalQuestions;
                 totalUsersEl.textContent = usersData.length;
+                totalGamesEl.textContent = gamesData.length;
             }
 
             function loadExamsTable() {
@@ -1174,6 +1410,52 @@
                     btn.addEventListener('click', function() {
                         const id = parseInt(this.getAttribute('data-id'));
                         showConfirmationModal('Supprimer l\'examen', 'Êtes-vous sûr de vouloir supprimer cet examen ? Cette action est irréversible.', 'deleteExam', id);
+                    });
+                });
+            }
+
+            function loadGamesTable() {
+                gamesContainer.innerHTML = '';
+                
+                gamesData.forEach(game => {
+                    const gameCard = document.createElement('div');
+                    gameCard.className = 'game-card';
+                    const statusClass = game.status === 'active' ? 'active' : (game.status === 'inactive' ? 'inactive' : 'development');
+                    const statusText = game.status === 'active' ? 'Actif' : (game.status === 'inactive' ? 'Inactif' : 'En développement');
+                    
+                    gameCard.innerHTML = `
+                        <div class="game-icon">
+                            <i class="fas fa-${getGameIcon(game.type)}"></i>
+                        </div>
+                        <div class="game-title">${game.name}</div>
+                        <div class="game-description">${game.description}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                            <span class="game-status ${statusClass}">${statusText}</span>
+                            <div class="action-buttons">
+                                <button class="action-btn edit-btn" data-id="${game.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete-btn" data-id="${game.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    gamesContainer.appendChild(gameCard);
+                });
+                
+                // Ajouter les écouteurs d'événements pour les boutons d'action
+                document.querySelectorAll('.game-card .edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        editGame(id);
+                    });
+                });
+                
+                document.querySelectorAll('.game-card .delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        showConfirmationModal('Supprimer le jeu', 'Êtes-vous sûr de vouloir supprimer ce jeu ? Cette action est irréversible.', 'deleteGame', id);
                     });
                 });
             }
@@ -1510,6 +1792,114 @@
                 return maxId + 1;
             }
 
+            function showGameForm() {
+                isEditingGame = false;
+                editingGameId = null;
+                document.getElementById('game-form-title').textContent = 'Ajouter un Jeu Éducatif';
+                gameForm.style.display = 'block';
+                resetGameForm();
+            }
+            
+            function hideGameForm() {
+                gameForm.style.display = 'none';
+            }
+            
+            function resetGameForm() {
+                document.getElementById('game-name').value = '';
+                document.getElementById('game-description').value = '';
+                document.getElementById('game-type').value = 'quiz';
+                document.getElementById('game-subject').value = 'math';
+                document.getElementById('game-difficulty').value = 'medium';
+                document.getElementById('game-status').value = 'active';
+                document.getElementById('game-url').value = '';
+                document.getElementById('game-image').value = '';
+            }
+            
+            function editGame(id) {
+                isEditingGame = true;
+                editingGameId = id;
+                document.getElementById('game-form-title').textContent = 'Modifier le Jeu';
+                gameForm.style.display = 'block';
+                
+                const game = gamesData.find(g => g.id === id);
+                if (game) {
+                    document.getElementById('game-name').value = game.name;
+                    document.getElementById('game-description').value = game.description;
+                    document.getElementById('game-type').value = game.type;
+                    document.getElementById('game-subject').value = game.subject;
+                    document.getElementById('game-difficulty').value = game.difficulty;
+                    document.getElementById('game-status').value = game.status;
+                    document.getElementById('game-url').value = game.url;
+                    document.getElementById('game-image').value = game.image || '';
+                }
+            }
+            
+            function deleteGame(id) {
+                gamesData = gamesData.filter(g => g.id !== id);
+                saveGamesData();
+                refreshAdminData();
+                confirmationModal.style.display = 'none';
+            }
+            
+            function saveGame() {
+                const name = document.getElementById('game-name').value;
+                const description = document.getElementById('game-description').value;
+                const type = document.getElementById('game-type').value;
+                const subject = document.getElementById('game-subject').value;
+                const difficulty = document.getElementById('game-difficulty').value;
+                const status = document.getElementById('game-status').value;
+                const url = document.getElementById('game-url').value;
+                const image = document.getElementById('game-image').value;
+                
+                if (!name || !description || !url) {
+                    alert('Veuillez remplir tous les champs obligatoires.');
+                    return;
+                }
+                
+                if (isEditingGame) {
+                    // Mettre à jour le jeu existant
+                    const gameIndex = gamesData.findIndex(g => g.id === editingGameId);
+                    if (gameIndex !== -1) {
+                        gamesData[gameIndex].name = name;
+                        gamesData[gameIndex].description = description;
+                        gamesData[gameIndex].type = type;
+                        gamesData[gameIndex].subject = subject;
+                        gamesData[gameIndex].difficulty = difficulty;
+                        gamesData[gameIndex].status = status;
+                        gamesData[gameIndex].url = url;
+                        gamesData[gameIndex].image = image;
+                    }
+                } else {
+                    // Ajouter un nouveau jeu
+                    const newId = getNextGameId();
+                    gamesData.push({
+                        id: newId,
+                        name: name,
+                        description: description,
+                        type: type,
+                        subject: subject,
+                        difficulty: difficulty,
+                        status: status,
+                        url: url,
+                        image: image
+                    });
+                }
+                
+                saveGamesData();
+                hideGameForm();
+                refreshAdminData();
+            }
+            
+            function getNextGameId() {
+                let maxId = 0;
+                gamesData.forEach(game => {
+                    if (game.id > maxId) {
+                        maxId = game.id;
+                    }
+                });
+                return maxId + 1;
+            }
+
             function showConfirmationModal(title, message, action, itemId) {
                 modalConfirmationTitle.textContent = title;
                 modalConfirmationBody.textContent = message;
@@ -1522,6 +1912,9 @@
                 switch(currentAction) {
                     case 'deleteExam':
                         deleteExam(currentItemId);
+                        break;
+                    case 'deleteGame':
+                        deleteGame(currentItemId);
                         break;
                     // Ajouter d'autres actions ici
                 }
@@ -1546,7 +1939,19 @@
                     default: return 'Autre';
                 }
             }
+
+            function getGameIcon(gameType) {
+                switch(gameType) {
+                    case 'quiz': return 'question-circle';
+                    case 'memory': return 'brain';
+                    case 'puzzle': return 'puzzle-piece';
+                    case 'adventure': return 'map-marked-alt';
+                    case 'simulation': return 'desktop';
+                    default: return 'gamepad';
+                }
+            }
         });
     </script>
 </body>
 </html>
+       
